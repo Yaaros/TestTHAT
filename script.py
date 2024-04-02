@@ -15,11 +15,12 @@ def test_script(root):
             print(record[0], record[len(record) - 1])
             interval = (record[len(record) - 1] - record[0]) / 2000
             print(interval)
-            cur_Least_Line = [0.0 for _ in range(len(record))]
-            cur_Least_Line[0] = record[0] + interval
+            cur_Least_Line = [(record[0] + interval) for _ in range(len(record))]
             for i in range(len(record)):
-                if i > 0:
+                if i > 0 and record[i] > cur_Least_Line[i]:
                     cur_Least_Line[i] = cur_Least_Line[i - 1] + interval
+                else:
+                    cur_Least_Line[i] = cur_Least_Line[i - 1]
             plt.figure(0)
             plt.plot(x_labels, record)
             plt.plot(x_labels, cur_Least_Line,color='r')
